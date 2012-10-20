@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 import sys
+import random
 
 """
 Comparison functions
@@ -29,9 +30,17 @@ Returns:
 """
 
 def quicksort(list, cmp=default_cmp):
-    # test
-    list.sort(cmp)
-    return(list)
+    return qsort(list[:], cmp)
+
+def qsort(list, cmp):
+    if list == []:
+        return list
+    else:
+        pivot_ndx = random.choice(range(len(list)))
+        pivot = list.pop(pivot_ndx)
+        left = [x for x in list if cmp(x, pivot) < 0]
+        right = [x for x in list if cmp(x, pivot) >= 0]
+        return qsort(left, cmp) + [pivot] + qsort(right, cmp)
 
 def insertionsort(list, cmp=default_cmp):
     pass
@@ -99,7 +108,7 @@ def bucketsort(list, cmp=default_cmp):
 
     # Range of values that each bucket holds.
     bucket_size = msvalue(max_val - min_val)
-    
+
     # Set up the empty buckets.
     num_buckets = (max_val / bucket_size) - (min_val / bucket_size)
     bucket_list = []
@@ -111,7 +120,7 @@ def bucketsort(list, cmp=default_cmp):
     for i in range(n):
         # Items are indexed by rounding down to the nearest bucket.
         index = (len_list[i][0] / bucket_size) - (min_val / bucket_size)
-        
+
         bucket_list[index].append(len_list[i][1])
 
     # Sort the buckets. If all elements indexed
@@ -124,12 +133,12 @@ def bucketsort(list, cmp=default_cmp):
                 bucket_list[i] = insertionsort(bucket_list[i], cmp)
             else:
                 bucket_list[i] = bucketsort(bucket_list[i])
-    
+
     # Concatenate all of the sorted buckets
     ret_val = []
     for i in range(len(bucket_list)):
         ret_val += bucket_list[i]
-        
+
     return ret_val
 
 """
@@ -138,9 +147,15 @@ Main
 Parse command line arguments and execute sort functions.
 """
 if __name__ == "__main__":
-    if len(sys.argv) != 3:
-        print("Incorrect usage. Please specify an input & output file.")
+    if len(sys.argv) < 2:
+        print("Usage: ./sortUrls.py <input file> <output file (opt)>")
         sys.exit()
+
+    outfile = None
+    if len(sys.argv) == 3:
+        outfile = open(sys.argv[2], 'w')
+    else:
+        outfile = sys.stdout
 
     algos = {1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort}
 
@@ -148,8 +163,7 @@ if __name__ == "__main__":
     urls = lines[1:]
 
     sel = int(lines[0])
-    output = open(sys.argv[2], 'w')
-    output.write("".join(algos[sel](urls)))
+    outfile.write("".join(algos[sel](urls)))
 
 
 # vim: set ai et ts=4 sw=4 sts=4 :
