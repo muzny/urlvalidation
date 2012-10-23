@@ -43,7 +43,14 @@ def qsort(list, cmp):
         return qsort(left, cmp) + [pivot] + qsort(right, cmp)
 
 def insertionsort(list, cmp=default_cmp):
-    pass
+    for i in range(1, len(list)):
+        save = list[i]
+        j = i
+        while j > 0 and cmp(list[j - 1], save) > 0:
+            list[j] = list[j - 1]
+            j -= 1
+        list[j] = save
+    return list
 
 def mergesort(list, cmp=default_cmp):
     size = len(list)
