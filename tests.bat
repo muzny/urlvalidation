@@ -16,3 +16,4 @@ python sortUrls.py tests/input_test_4-3.txt tests/output_test_4-3.txt
 python sortUrls.py tests/input_test_0.txt tests/output_test_0.txt
 python sortUrls.py tests/input_test_0-1.txt tests/output_test_0-1.txt
 python sortUrls.py tests/input_test_0-2.txt tests/output_test_0-2.txt
+python sortUrls.py tests/input_test_0-3.txt tests/output_test_0-3.txt

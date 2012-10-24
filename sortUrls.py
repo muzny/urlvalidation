@@ -165,12 +165,22 @@ if __name__ == "__main__":
         outfile = sys.stdout
 
     algos = {1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort}
-
-    lines = open(sys.argv[1]).readlines()
-    urls = lines[1:]
-
-    sel = int(lines[0])
-    outfile.write("".join(algos[sel](urls)))
+    
+    errorMessage = "Inappropriate input file format.  You must specify one of the following sorts by an integer (1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort), followed by a list of strings to sort (one on each line)."
+    
+    try:
+        lines = open(sys.argv[1]).readlines()
+        urls = lines[1:]
+        sel = int(lines[0])
+        outfile.write("".join(algos[sel](urls)))
+    except IOError as e:
+        print "Error: File \"" + sys.argv[1] + "\" not found."
+    except IndexError as e:
+        print errorMessage
+    except ValueError as e:
+        print errorMessage
+    except KeyError as e:
+        print errorMessage
 
 
 # vim: set ai et ts=4 sw=4 sts=4 :
