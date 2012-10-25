@@ -2,6 +2,93 @@
 
 import sys
 import random
+from heapq import *
+
+"""
+The following sorting algorithms are taken from the Bulletin group.
+They sort based on the default comparator.
+
+They correspond to the following numbers:
+5 - selectionsort_alphabetical
+6 - radixsort
+7 - mergesort_alphabetical
+8 - heapsort
+"""
+def selectionsort_alphabetical(lst):
+    n = len(lst)
+    for i in range(n):
+        low = i
+        for j in range(i + 1, n):
+            if lst[j] < lst[low]:
+                low = j
+        lst[i], lst[low] = lst[low], lst[i]
+    return lst
+
+def getChar(url, digit_num):
+    if digit_num >= len(url):
+        return 0
+    else:
+        return ord(url[digit_num])
+
+def makeBlanks(size):
+    # create a list of empty lists to hold the split by digit
+    return [ [] for i in range(size) ]
+
+def split(a_list, base, digit_num):
+    buckets = makeBlanks(base)
+    for num in a_list:
+        # append the number to the list selected by the digit
+        buckets[getChar(num, digit_num)].append(num) # getDigit(num, base, digit_num)].append(num)
+    return buckets
+
+# concatenate the lists back in order for the next step
+def merge_radix(a_list):
+    new_list = []
+    for sublist in a_list:
+       new_list.extend(sublist)
+    return new_list
+
+def maxAbs(a_list):
+    # largest abs value element of a list
+    return max(abs(num) for num in a_list)
+
+def radixsort(a_list): # , base):
+    # there are as many passes as there are digits in the longest number
+    # passes = int(log(maxAbs(a_list), base) + 1)
+    try:
+        passes = len(max(a_list, key=len))
+        base = 256
+        new_list = list(a_list)
+        for digit_num in range(passes):
+            new_list = merge_radix(split(new_list, base, passes - digit_num - 1))
+        return new_list
+    except ValueError:
+        return []
+
+def mergesort_alphabetical(lst):
+    if len(lst) <= 1:
+        return lst
+    mid = len(lst) // 2
+    return merge_alphabetical(mergesort_alphabetical(lst[:mid]), mergesort_alphabetical(lst[mid:]))
+
+def merge_alphabetical(left, right):
+    merged = []
+    l = r = 0
+    while l < len(left) and r < len(right):
+        if left[l] <= right[r]:
+            merged.append(left[l])
+            l += 1
+        else:
+            merged.append(right[r])
+            r += 1
+    return merged + left[l:] + right[r:]
+
+def heapsort(lst):
+    heap = list(lst)
+    heapify(heap)
+    for i in range(len(lst)):
+        lst[i] = heappop(heap)
+    return lst
 
 """
 Comparison functions
@@ -164,7 +251,9 @@ if __name__ == "__main__":
     else:
         outfile = sys.stdout
 
-    algos = {1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort}
+    algos = {1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort,
+             5: selectionsort_alphabetical, 6: radixsort, 7: mergesort_alphabetical,
+             8: heapsort}
     
     errorMessage = "Inappropriate input file format.  You must specify one of the following sorts by an integer (1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort), followed by a list of strings to sort (one on each line)."
     
