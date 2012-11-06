@@ -1,5 +1,4 @@
-3
-www.facebook.com
 news.ycombinator.com
-www.google.com
 cs.washington.edu
+www.google.com
+www.facebook.com

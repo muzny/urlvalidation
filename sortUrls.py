@@ -2,6 +2,7 @@
 
 import sys
 import random
+import argparse
 from heapq import *
 
 """
@@ -117,17 +118,25 @@ Returns:
 """
 
 def quicksort(list, cmp=default_cmp):
-    return qsort(list[:], cmp)
+    """Sort a list of items using the given comparsion function.
 
-def qsort(list, cmp):
-    if list == []:
-        return list
-    else:
-        pivot_ndx = random.choice(range(len(list)))
-        pivot = list.pop(pivot_ndx)
-        left = [x for x in list if cmp(x, pivot) < 0]
-        right = [x for x in list if cmp(x, pivot) >= 0]
-        return qsort(left, cmp) + [pivot] + qsort(right, cmp)
+    This method does not modify the input list.
+    Note: Although quicksort has a worst-case running time of O(n^2),
+    this occurs extremely rarely. In practice, quicksort is often
+    faster than other O(nlogn) sorting algorithms.
+    Average case running time: O(nlogn) , Worst case: O(n^2)
+    """
+    def qsort(list, cmp):
+        if list == []:
+            return list
+        else:
+            pivot_ndx = random.choice(range(len(list)))
+            pivot = list.pop(pivot_ndx)
+            left = [x for x in list if cmp(x, pivot) < 0]
+            right = [x for x in list if cmp(x, pivot) >= 0]
+            return qsort(left, cmp) + [pivot] + qsort(right, cmp)
+
+    return qsort(list[:], cmp)
 
 def insertionsort(list, cmp=default_cmp):
     for i in range(1, len(list)):
@@ -241,35 +250,51 @@ Main
 Parse command line arguments and execute sort functions.
 """
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: ./sortUrls.py <input file> <output file (opt)>")
-        sys.exit()
-
-    outfile = None
-    if len(sys.argv) == 3:
-        outfile = open(sys.argv[2], 'w')
-    else:
-        outfile = sys.stdout
-
     algos = {1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort,
              5: selectionsort_alphabetical, 6: radixsort, 7: mergesort_alphabetical,
              8: heapsort}
-    
-    errorMessage = "Inappropriate input file format.  You must specify one of the following sorts by an integer (1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort), followed by a list of strings to sort (one on each line)."
-    
+
+    parser = argparse.ArgumentParser(description="""Sorting Madness!
+        Given an input file containing one url per line, prints the sorted list
+        of urls to the output file. The desired sorting algorithm can be supplied using
+        an integer, either as a command-line argument or as the first line of the
+        input file. If both methods are used, the command-line argument wins. If no
+        sorting algorithm is supplied, the default is quicksort. """)
+    parser.add_argument('-i', '--input', help='the input file', required=True)
+    parser.add_argument('-o', '--output', help='the output file', required=True)
+    parser.add_argument('-s', '--sort', type=int, help='the sorting algorithm. \
+                        Must be an integer. possible values are:\n' +
+                        '\n'.join(['%d:%s' % (k, algos[k].__name__) for k in algos.keys()]) )
+    args = parser.parse_args()
+
+    outfile = None
+    urls = None
+
     try:
-        lines = open(sys.argv[1]).readlines()
-        urls = lines[1:]
-        sel = int(lines[0])
-        outfile.write("".join(algos[sel](urls)))
-    except IOError as e:
-        print "Error: File \"" + sys.argv[1] + "\" not found."
-    except IndexError as e:
-        print errorMessage
-    except ValueError as e:
-        print errorMessage
-    except KeyError as e:
-        print errorMessage
+        outfile = open(args.output, 'w')
+    except IOError:
+        print "Error: Unable to open output file \"%s\"." % args.output
+        sys.exit()
+
+    try:
+        urls = open(args.input).readlines()
+    except IOError:
+        print "Error: File \"%s\" not found." % args.input
+        sys.exit()
+
+    sel = 3  # default selection is quicksort
+
+    try:
+        if len(urls) > 0:
+            sel = int(urls[0]) # try getting the sorting alg from the file
+            urls = urls[1:] # this line isn't executed if above failes
+    except ValueError:
+        pass
+
+    if args.sort is not None: # command line always wins
+        sel = args.sort
+
+    outfile.write("".join(algos[sel](urls)))
 
 
 # vim: set ai et ts=4 sw=4 sts=4 :
