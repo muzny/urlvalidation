@@ -76,7 +76,7 @@ class BucketSort:
         for i in range(len(bucket_list)):
             if len(bucket_list[i]) > 0:
                 if len(bucket_list[i]) == len(list):
-                    bucket_list[i] = insertionsort(bucket_list[i], cmp)
+                    bucket_list[i] = bucket_list[i]
                 else:
                     bucket_list[i] = self.bucketsort(bucket_list[i], cmp)
 
