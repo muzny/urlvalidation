@@ -53,7 +53,7 @@ if __name__ == "__main__":
     parser.add_argument('-i', '--input', help='the input file', required=True)
     parser.add_argument('-o', '--output', help='the output file', required=True)
     parser.add_argument('-s', '--sort', type=int,
-                        choices=list(range(1,len(algos.keys()))),
+                        choices=list(range(1,len(algos)+1)),
                         help='the sorting algorithm. \
                         Must be an integer. possible values are:\n' +
                         '\n'.join(['%d:%s' % (k, algos[k].__name__) for k in algos.keys()]) )
