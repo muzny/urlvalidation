@@ -16,7 +16,7 @@ Given this metric we came up with the following searches.
 
 The intended usage of our file is "sortUrls.py -i <input file> -o <output file> [-s <sorting algorithm>]".  
 The program requires that you specify an input file consisting of a line-delimited list of URLs to sort, and an output file to which to write the sorted results.  The location of the output file will be determined by 
-In addition, you may also optionally specify the sorting algorithm to use.  This argument accepts integers corresponding to the following algorithms and orderings:
+In addition, you may also optionally specify the sorting algorithm to use.  Otherwise, the sorting algorithm defaults to quick sort based on length (3).  The argument accepts integers corresponding to the following algorithms and orderings:
 
 Sorting by length -
 * 1: Insertion Sort
