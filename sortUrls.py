@@ -87,10 +87,7 @@ if __name__ == "__main__":
         sel = args.sort
 
     sorter = algos[sel](urls)
-    print "sorting using", algos[sel].__name__, "..."
     sortedList = sorter.sort()
-    for x in sortedList:
-        print x,
     outfile.write("".join(sortedList))
 
 
