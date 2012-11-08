@@ -1,12 +1,12 @@
 #! /usr/bin/python
 import random
-from comparators import default_cmp
+from comparators import length
 
 # Class Definition
 class QuickSort:
-    def __init__(self, list, cmp=default_cmp):
+    def __init__(self, list, cmp=length):
         self.list = list
-        self.cmp = default_cmp
+        self.cmp = cmp
 
     def sort(self):
         """Sort a list of items using the given comparsion function.

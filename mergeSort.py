@@ -1,5 +1,5 @@
 #! /usr/bin/python
-from comparators import default_cmp
+from comparators import length
 
 # Static Helper Methods
 def merge(left, right, cmp):
@@ -22,9 +22,9 @@ def merge(left, right, cmp):
 
 # Class Definition
 class MergeSort:
-    def __init__(self, list, cmp=default_cmp):
+    def __init__(self, list, cmp=length):
         self.list = list
-        self.cmp = default_cmp
+        self.cmp = cmp
 
     def sort(self):
         return self.sort_helper(self.list, self.cmp)

@@ -1,11 +1,11 @@
 #! /usr/bin/python
-from comparators import default_cmp
+from comparators import length
 
 # Class Definition
 class InsertionSort:
-    def __init__(self, list, cmp=default_cmp):
+    def __init__(self, list, cmp=length):
         self.list = list
-        self.cmp = default_cmp
+        self.cmp = cmp
 
     def sort(self):
         list = self.list

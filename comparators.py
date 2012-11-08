@@ -10,6 +10,6 @@ Returns:
     positive integer if the first succeeds the second
 """
 
-# Default comparator orders by length.
-def default_cmp(a, b):
+# Orders elements by their length.
+def length(a, b):
     return len(a) - len(b)
