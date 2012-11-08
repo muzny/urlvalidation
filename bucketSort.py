@@ -18,6 +18,15 @@ def msvalue(n):
 
 # Class Definition
 class BucketSort:
+    '''
+    Class that defines our bucket sort algorithm. Although bucket sort
+    can do as poorly as O(n^2) in worst case, it can do as well as
+    O(n) in best case (i.e. the case when each element hashes into
+    its own bucket). So on average, it isn't O(n), but then again
+    no sorting algorithm is, and we chose to pick a sorting
+    algorithm with a good best-case.
+    '''
+    
     def __init__(self, list):
         self.list = list
 
