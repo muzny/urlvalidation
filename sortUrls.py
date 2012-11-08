@@ -20,20 +20,20 @@ def bucketsort(*args):
     return bucketSort.BucketSort(*args)
 
 def selectionsort_alphabetical(*args):
-    import alphabeticalSectionSort
-    return alphabeticalSectionSort.AlphabeticalSectionSort(*args)
+    import alphabeticalSelectionSort
+    return alphabeticalSelectionSort.AlphabeticalSelectionSort(*args)
 
-def radixsort(*args):
-    import radixSort
-    return radixSort.RadixSort(*args)
+def radixsort_alphabetical(*args):
+    import alphabeticalRadixSort
+    return alphabeticalRadixSort.AlphabeticalRadixSort(*args)
 
 def mergesort_alphabetical(*args):
     import alphabeticalMergeSort
     return alphabeticalMergeSort.AlphabeticalMergeSort(*args)
 
-def heapsort(*args):
-    import heapSort
-    return heapSort.HeapSort(*args)
+def heapsort_alphabetical(*args):
+    import alphabeticalHeapSort
+    return alphabeticalHeapSort.AlphabeticalHeapSort(*args)
 
 
 """
@@ -43,8 +43,8 @@ Parse command line arguments and execute sort functions.
 """
 if __name__ == "__main__":
     algos = {1: insertionsort, 2: mergesort, 3: quicksort, 4: bucketsort,
-             5: selectionsort_alphabetical, 6: radixsort, 7: mergesort_alphabetical,
-             8: heapsort}
+             5: selectionsort_alphabetical, 6: radixsort_alphabetical, 
+             7: mergesort_alphabetical, 8: heapsort_alphabetical}
 
     parser = argparse.ArgumentParser(description="""Sorting Madness!
         Given an input file containing one url per line, prints the sorted list
@@ -87,7 +87,10 @@ if __name__ == "__main__":
         sel = args.sort
 
     sorter = algos[sel](urls)
+    print "sorting using", algos[sel].__name__, "..."
     sortedList = sorter.sort()
+    for x in sortedList:
+        print x,
     outfile.write("".join(sortedList))
 
 

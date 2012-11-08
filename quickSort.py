@@ -1,9 +1,6 @@
 #! /usr/bin/python
 import random
-
-# Static Definition Methods
-def default_cmp(a, b):
-    return len(a) - len(b)
+from comparators import default_cmp
 
 # Class Definition
 class QuickSort:

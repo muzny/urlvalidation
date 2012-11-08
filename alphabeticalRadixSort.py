@@ -25,7 +25,7 @@ def merge_radix(a_list):
     return new_list
 
 # Class Definition
-class RadixSort:
+class AlphabeticalRadixSort:
     def __init__(self, a_list):
         self.a_list = a_list
 

@@ -1,10 +1,6 @@
 #! /usr/bin/python
 import sys
 
-# Static Definition Methods
-def default_cmp(a, b):
-    return len(a) - len(b)
-
 # Static Helper Methods
 def msvalue(n):
     '''
@@ -22,22 +18,20 @@ def msvalue(n):
 
 # Class Definition
 class BucketSort:
-    def __init__(self, list, cmp=default_cmp):
+    def __init__(self, list):
         self.list = list
-        self.cmp = default_cmp
 
     def sort(self):
         list = self.list
-        cmp = self.cmp
 
         '''
         Recursively performs bucket sort on the list
         of strings, using their lengths to index
         them.
         '''
-        return self.bucketsort(self.list, self.cmp)
+        return self.bucketsort(self.list)
 
-    def bucketsort(self, list, cmp):
+    def bucketsort(self, list):
         # Pre-parse the length of each string in the list
         # so that we can find the min and max with which to set
         # up the buckets.
@@ -78,7 +72,7 @@ class BucketSort:
                 if len(bucket_list[i]) == len(list):
                     bucket_list[i] = bucket_list[i]
                 else:
-                    bucket_list[i] = self.bucketsort(bucket_list[i], cmp)
+                    bucket_list[i] = self.bucketsort(bucket_list[i])
 
         # Concatenate all of the sorted buckets
         ret_val = []

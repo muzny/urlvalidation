@@ -1,8 +1,5 @@
 #! /usr/bin/python
-
-# Static Definition Methods
-def default_cmp(a, b):
-    return len(a) - len(b)
+from comparators import default_cmp
 
 # Static Helper Methods
 def merge(left, right, cmp):

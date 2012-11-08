@@ -1,7 +1,7 @@
 #! /usr/bin/python
 from heapq import *
 
-class HeapSort:
+class AlphabeticalHeapSort:
     def __init__(self, lst):
         self.lst = lst
 

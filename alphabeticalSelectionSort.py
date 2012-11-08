@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-class AlphabeticalSectionSort:
+class AlphabeticalSelectionSort:
     def __init__(self, lst):
         self.lst = lst
 
