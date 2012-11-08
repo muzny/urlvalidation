@@ -1,0 +1,4 @@
+news.ycombinator.com
+cs.washington.edu
+www.google.com
+www.facebook.com

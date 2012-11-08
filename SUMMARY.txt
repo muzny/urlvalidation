@@ -1,0 +1,24 @@
+Our project was to take a file of URLs and sort them, using four different sorting algorithms.  These algorithms needed to have efficiency of O(n^2), O(n), and two at O(n log n).
+
+We decided that our sorting metric was going to be the length of the URL.  Given this metric we came up with the following searches.
+* Insertion Sort - O(n^2)
+* Merge Sort - O(n log n)
+* Quick Sort - O(n log n)
+* Bucket Sort - O(n)
+
+The intended usage of our file is "<Path to Repository>/sortUrls.py <input file> <output file (opt)>".  As you can see, the output file parameter is optional.  If left blank, it will print out the sorted URLs to standard out.  In addition, you do not specify the specific sorting algorithm to use as a parameter.  Instead, input files should be prefaced with a line stating which algorithm to use as a numeral corresponding to the following sorting methods.
+* Insertion Sort
+* Merge Sort
+* Quick Sort
+* Bucket Sort
+
+The output file (if any) will be in the location specified as the output file directory parameter.
+
+Since our team has seven people, we divided the jobs for this assignment into seven tasks.
+* Implementing Insertion Sort
+* Implementing Merge Sort
+* Implementing Quick Sort
+* Implementing Bucket Sort
+* Writing All Input/Output Related Functionality
+* Creating the Test Suite
+* Writing the Summary Paper
