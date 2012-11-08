@@ -1,7 +1,7 @@
 Our project was to take a file of URLs and sort them, using four different sorting algorithms.  These algorithms needed to have efficiency of O(n^2), O(n), and two at O(n log n).
 
 
-We decided that our sorting metric was going to be the length of the URL.  While sorting URLs by length is not particularly useful in many cases (except possibly finding those that are more likely to be shortened aliases or higher-level domains), we wanted the same sorting metric to be applied to all algorithms, and that the metric would allow us to implement bucket sort without using a tremendous amount of memory (since we don't expect the length of URLs to be very long).  In order to remain consistent across all our sorting implementations, we do not explicitly handle ties when comparing URLs of the same length.
+We decided that our sorting metric was going to be the length of the URL.  While sorting URLs by length is not particularly useful in many cases (except possibly finding those that are more likely to be shortened aliases or higher-level domains), we wanted the same sorting metric to be applied to all algorithms, and that the metric would allow us to implement bucket sort without using a tremendous amount of time and memory (since we don't expect the length of URLs to be very long).  In order to keep bucket sort within the runtime constraint as well as remain consistent across all our sorting implementations, we do not explicitly handle ties when comparing URLs of the same length.
 
 Given this metric we came up with the following searches.
 * Insertion Sort - O(n^2)
