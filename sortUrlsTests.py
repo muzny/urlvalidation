@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 import unittest
 import sortUrls
-from comparators import length
+from sortfunctions.comparators import length
 
 class TestUrlsSorting(unittest.TestCase):
 

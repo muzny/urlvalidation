@@ -1,4 +1,3 @@
-#! /usr/bin/python
 import sys
 
 # Static Helper Methods
@@ -26,7 +25,7 @@ class BucketSort:
     no sorting algorithm is, and we chose to pick a sorting
     algorithm with a good best-case.
     '''
-    
+
     def __init__(self, list):
         self.list = list
 

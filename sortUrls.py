@@ -3,38 +3,31 @@
 import sys
 import argparse
 from urltools import validator, normalizer
+from sortfunctions import *
 
 
 def insertionsort(*args):
-    import insertionSort
     return insertionSort.InsertionSort(*args)
 
 def mergesort(*args):
-    import mergeSort
     return mergeSort.MergeSort(*args)
 
 def quicksort(*args):
-    import quickSort
     return quickSort.QuickSort(*args)
 
 def bucketsort(*args):
-    import bucketSort
     return bucketSort.BucketSort(*args)
 
 def selectionsort_alphabetical(*args):
-    import alphabeticalSelectionSort
     return alphabeticalSelectionSort.AlphabeticalSelectionSort(*args)
 
 def radixsort_alphabetical(*args):
-    import alphabeticalRadixSort
     return alphabeticalRadixSort.AlphabeticalRadixSort(*args)
 
 def mergesort_alphabetical(*args):
-    import alphabeticalMergeSort
     return alphabeticalMergeSort.AlphabeticalMergeSort(*args)
 
 def heapsort_alphabetical(*args):
-    import alphabeticalHeapSort
     return alphabeticalHeapSort.AlphabeticalHeapSort(*args)
 
 

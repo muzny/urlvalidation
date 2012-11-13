@@ -1,4 +1,3 @@
-#! /usr/bin/python
 
 class AlphabeticalSelectionSort:
     def __init__(self, lst):

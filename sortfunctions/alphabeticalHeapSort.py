@@ -1,4 +1,3 @@
-#! /usr/bin/python
 from heapq import *
 
 class AlphabeticalHeapSort:
@@ -7,7 +6,7 @@ class AlphabeticalHeapSort:
 
     def sort(self):
         lst = self.lst
-        
+
         heap = list(lst)
         heapify(heap)
         for i in range(len(lst)):

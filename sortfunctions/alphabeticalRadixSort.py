@@ -1,4 +1,3 @@
-#! /usr/bin/python
 
 # Static Helper Methods
 def getChar(url, digit_num):

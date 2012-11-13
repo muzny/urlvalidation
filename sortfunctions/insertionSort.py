@@ -1,4 +1,3 @@
-#! /usr/bin/python
 from comparators import length
 
 # Class Definition
