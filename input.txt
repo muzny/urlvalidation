@@ -1,7 +1,9 @@
 http://news.ycombinator.com
 ?i_am_an_invalid_url
 http://cs.washington.edu
-www.google.com
+http://www.google.com/?
+http://www.google.com:80/
+http://www.example.com/a%c2%b1b
 www.facebook.com
-3:23:1/4.3\invalid_url
+http://3:23:1/4.3\invalid_url
 http://www.example.com/space here.html

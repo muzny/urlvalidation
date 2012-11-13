@@ -16,6 +16,7 @@ Given this metric we came up with the following searches.
 
 The intended usage of our file is "sortUrls.py -i <input file> -o <output file> [-s <sorting algorithm>]".  
 The program requires that you specify an input file consisting of a line-delimited list of URLs to sort, and an output file to which to write the sorted results.  The location of the output file will be determined by 
+You can optionally specify which types of urls to sort: valid, invalid, or all urls. NB: If a 'valid' or 'invalid' is chosen, then all output urls will be normalized.
 In addition, you may also optionally specify the sorting algorithm to use.  Otherwise, the sorting algorithm defaults to quick sort based on length (3).  The argument accepts integers corresponding to the following algorithms and orderings:
 
 Sorting by length -
@@ -39,3 +40,10 @@ Since our team has seven people, we divided the jobs for this assignment into se
 * Writing All Input/Output Related Functionality
 * Creating the Test Suite
 * Writing the Summary Paper
+
+We divided the url sorting exercise into the following tasks:
+* Adding a command-line option for url validation
+* Various normalization procedures
+* URL validation
+* Summary paper & documentation
+

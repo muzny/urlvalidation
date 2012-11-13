@@ -2,7 +2,8 @@
 
 import sys
 import argparse
-import validator
+from urltools import validator, normalizer
+
 
 def insertionsort(*args):
     import insertionSort
@@ -50,7 +51,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="""Sorting Madness!
         Given an input file containing one url per line, prints the sorted list
         of urls to the output file. The desired sorting algorithm can be supplied as
-        a command-line argument. The default is quicksort.""")
+        a command-line argument. The default is quicksort.
+
+        You may also specify if you wish to only sort valid or invalid urls.
+        Note: If one of the validation options is chosen, all output urls will be normalized.""")
     parser.add_argument('-i', '--input', help='the input file', required=True)
     parser.add_argument('-o', '--output', help='the output file', required=True)
     parser.add_argument('-s', '--sort', type=int,
@@ -81,11 +85,15 @@ if __name__ == "__main__":
     if args.sort is not None: # try getting sort selection from command-line args
         sel = args.sort
 
-    validUrls = validator.getValidUrls(urls)
+    # normalize and validate urls, if desired
+    normUrls = normalizer.normalize(urls)
+    print("norm: " + str(normUrls))
+    validUrls = validator.validate(normUrls)
+    print("valid: " + str(validUrls))
     if args.kind == "valid":
         urls = validUrls
     elif args.kind == "invalid":
-        urls = filter(lambda x: x not in validUrls, urls)
+        urls = filter(lambda x: x not in validUrls, normUrls)
 
     sorter = algos[sel](urls)
     sortedList = sorter.sort()

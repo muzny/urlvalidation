@@ -11,17 +11,6 @@ URLregex= re.compile(
           r'(?::\d+)?' # optional port
           r'(?:/?|[/?]\S+)$', re.IGNORECASE)
 
-def getValidUrls(urls):
-    result = []
-    for url in urls:
-        url = normalize(url)
-        if isValid(url):
-            result.append(url)
-    return result
-
-def isValid(url):
-    return re.search(URLregex, url) is not None
-
-def normalize(url):
-    return url.lower() # redundant, as our validator regex already ignores case
+def validate(urls):
+    return [url for url in urls if re.search(URLregex, url) is not None]
 
