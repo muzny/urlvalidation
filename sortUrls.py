@@ -2,6 +2,7 @@
 
 import sys
 import argparse
+import validator
 
 def insertionsort(*args):
     import insertionSort
@@ -57,6 +58,8 @@ if __name__ == "__main__":
                         help='the sorting algorithm. \
                         Must be an integer. possible values are:\n' +
                         '\n'.join(['%d:%s' % (k, algos[k].__name__) for k in algos.keys()]) )
+    parser.add_argument('-k', '--kind', help='kind of urls to sort',
+                        choices=['valid', 'invalid', 'None']);
     args = parser.parse_args()
 
     outfile = None
@@ -77,6 +80,12 @@ if __name__ == "__main__":
     sel = 3  # default selection is quicksort
     if args.sort is not None: # try getting sort selection from command-line args
         sel = args.sort
+
+    validUrls = validator.getValidUrls(urls)
+    if args.kind == "valid":
+        urls = validUrls
+    elif args.kind == "invalid":
+        urls = filter(lambda x: x not in validUrls, urls)
 
     sorter = algos[sel](urls)
     sortedList = sorter.sort()
