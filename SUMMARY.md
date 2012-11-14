@@ -47,6 +47,8 @@ It is important to note:
 If 'valid' or 'invalid' is chosen, URLs will be normalized, then sorted and written out to file according to their normalized form (while it may be unintuitive to see, in the output, that the input is mutated, it makes our normalization method more transparent). If a URL is not normalized ('None'), it will be sorted and output according to its original form.
 
 ### Definition of a Valid Form
+A string is considered a valid URL if it matches the following regular expression: [[source, line 45](https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py)].
+
 To validate our URLs we decided to use the same validation regex used by the Django project. We copied the regex over
 to our validation module instead of adding a Django dependency for such a small piece of functionality.
 We chose this regex because it has been tested and implemented in a mature web framework. It should be more than
@@ -54,13 +56,15 @@ adequate for our needs.
 
 Valid URLs
 * begin with `http|https|ftp|ftps` followed by `://`
+    - The regex does not allow username/passwords typically used in the `ftp` and `ftps` schemes (e.g. `ftp://username@ftp.example.org` is not valid) 
 * followed by a domain, or `localhost`, or an ip address
+    - IP addresses are not checked for validity (e.g. `http://999.999.999.999` is a valid IPv4 address)
 * followed by an port, eg `:80` (optional)
+    - Port numbers are not checked for validity (i.e. may be out of range; greater than 2^16)
 * followed by a valid path (optional)
-* followed by a query string (optional)
+* followed by a query string and/or fragment (optional)
 For more specific information about specific number and types of characters allowed in each component,
 see the URL regex in `urltools/validator.py`
-
 
 ### Canonical Form
 Before validation, the following normalizations are performed (The first three are guaranteed to preserve semantics):
