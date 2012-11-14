@@ -80,9 +80,7 @@ if __name__ == "__main__":
 
     # normalize and validate urls, if desired
     normUrls = normalizer.normalize(urls)
-    print("norm: " + str(normUrls))
     validUrls = validator.validate(normUrls)
-    print("valid: " + str(validUrls))
     if args.kind == "valid":
         urls = validUrls
     elif args.kind == "invalid":
