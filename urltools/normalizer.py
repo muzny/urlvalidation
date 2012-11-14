@@ -34,18 +34,22 @@ def _add_trailing_slash(url):
     if res.params != '' or res.query != '' or res.fragment != '':
         return url  # it has stuff after the path
 
-    if url[len(url) - 2] != '/':
-        url = url[:-1] + '/\n'
+    if url[len(url) - 1] != '/':
+        url = url + '/'
 
     return url
 
 def _remove_dot_segments(url):
-    # urlparse only gives us a good path element for urls whose scheme is specified
+    # Note: add trailing slash must be called after this method, since this method
+    # will remove trailing slashes.
+    # Also, urlparse only gives us a good path element for urls whose scheme is specified
     # this is fine for now since scheme-less urls will fail validation anyway
     res = urlparse(url)
     path = res.path
-    if res.scheme != '':
+
+    if res.scheme != '' and res.path != '':
         path = posixpath.abspath(path)
+
     norm = (res.scheme, res.netloc, path, res.params, res.query, res.fragment)
     return urlunparse(norm)
 
@@ -56,16 +60,16 @@ def _remove_empty_querystring(url):
         return url
 
     # need to account for the \n at the end
-    if url[len(url) - 2] == '?':
-        url = url[:-2] + '\n'
+    if url[len(url) - 1] == r'?':
+        url = url[:-1]
     return url
 
 
 normalizations = [_lowercase,
                   _capitalize_escapes,
                   _remove_default_port,
-                  _add_trailing_slash,
                   _remove_dot_segments,
+                  _add_trailing_slash,
                   _remove_empty_querystring]
 
 def normalize(urls):

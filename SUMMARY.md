@@ -42,7 +42,7 @@ Since our team has seven people, we divided the jobs for this assignment into se
 You can optionally specify which types of urls to sort: valid, invalid, or all urls. NB: If a 'valid' or 'invalid' is chosen, then all output urls will be normalized.
 
 To validate our URLs we decided to use the same validation regex used by the Django project. We copied the regex over
-to our validation module instead of creating a Django dependency for such a small piece of functionality.
+to our validation module instead of adding a Django dependency for such a small piece of functionality.
 We chose this regex because it has been tested and implemented in a mature web framework. It should be more than
 adequate for our needs.
 
@@ -65,8 +65,9 @@ Before validation, the following normalizations are performed (The first three a
 
 
 We divided the url sorting exercise into the following tasks:
-* Adding a command-line option for url validation
-* Various normalization procedures
+* Command-line option for url validation
+* Normalization methods
 * URL validation
 * Summary paper & documentation
+* Additional unit tests
 

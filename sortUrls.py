@@ -78,6 +78,9 @@ if __name__ == "__main__":
     if args.sort is not None: # try getting sort selection from command-line args
         sel = args.sort
 
+    # remove trailing '\n' from urls
+    urls = [x.rstrip('\n') for x in urls]
+
     # normalize and validate urls, if desired
     normUrls = normalizer.normalize(urls)
     validUrls = validator.validate(normUrls)
@@ -88,7 +91,7 @@ if __name__ == "__main__":
 
     sorter = algos[sel](urls)
     sortedList = sorter.sort()
-    outfile.write("".join(sortedList))
+    outfile.write("\n".join(sortedList))
 
 
 # vim: set ai et ts=4 sw=4 sts=4 :

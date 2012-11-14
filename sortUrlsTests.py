@@ -2,6 +2,7 @@
 import unittest
 import sortUrls
 from sortfunctions.comparators import length
+from urltools import validator, normalizer
 
 class TestUrlsSorting(unittest.TestCase):
 
@@ -9,6 +10,8 @@ class TestUrlsSorting(unittest.TestCase):
     def setUp(self):
         #A list of urls to sort
         self.urls = ["www.google.com", "http://www.google.com", "a", "blarg@gmail.com", "facebook.com", "CS.WASHINGTON.EDU", "HTTPS://WWW.YAHOO.COM/"]
+        #Expected output of validator
+        self.validUrls = ["http://www.google.com", "HTTPS://WWW.YAHOO.COM/"]
         #Expected output of the sort-by-length functions
         self.sortedByLength = ["a", "facebook.com", "www.google.com", "blarg@gmail.com", "CS.WASHINGTON.EDU", "http://www.google.com", "HTTPS://WWW.YAHOO.COM/"]
         #Expected output of the sort-by-alphabetical functions
@@ -136,6 +139,48 @@ class TestUrlsSorting(unittest.TestCase):
         self.assertEquals(res, 0)
         res = length("a", "9358")
         self.assertEquals(res, -3)
+
+    #########################################
+    # URL Validation & Normalization Tests  #
+    #########################################
+
+    def test_append_slash(self):
+        url = 'HTTP://WWW.fakeurl.COM/testdir'
+        exp = 'http://www.fakeurl.com/testdir'
+        self.assertEquals(normalizer._lowercase(url), exp)
+        self.assertEquals(normalizer._lowercase(exp), exp)
+
+    def test_capitalize_escapes(self):
+        url = 'http://WWW.example.com/a%c2%b1b'
+        exp = 'http://WWW.example.com/a%C2%B1b'
+        self.assertEquals(normalizer._capitalize_escapes(url), exp)
+
+    def test_remove_default_port(self):
+        url = 'http://www.google.com:80/'
+        exp = 'http://www.google.com/'
+        self.assertEquals(normalizer._remove_default_port(url), exp)
+
+    def test_add_trailing_slash(self):
+        url1 = 'http://www.fakeurl.com/testfile.html'
+        exp1 = url1
+        url2 = 'http://www.fakeurl.com/testdir'
+        exp2 = 'http://www.fakeurl.com/testdir/'
+        self.assertEquals(normalizer._add_trailing_slash(url1), exp1)
+        self.assertEquals(normalizer._add_trailing_slash(url2), exp2)
+
+    def test_remove_dot_segments(self):
+        url = 'http://www.testsite.com/dir1/dir2a/../dir2b/./file.txt'
+        exp = 'http://www.testsite.com/dir1/dir2b/file.txt'
+        self.assertEquals(normalizer._remove_dot_segments(url), exp)
+
+    def test_remove_empty_querystring(self):
+        url = 'http://www.google.com/?'
+        exp = 'http://www.google.com/'
+        self.assertEquals(normalizer._remove_empty_querystring(url), exp)
+
+    def test_validator(self):
+        res = validator.validate(self.urls)
+        self.assertEquals(res, self.validUrls)
 
 if __name__ == "__main__":
     unittest.main()
