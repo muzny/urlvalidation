@@ -39,8 +39,14 @@ Since our team has seven people, we divided the jobs for this assignment into se
 * Writing the Summary Paper
 
 ##URL Validation
+### High Level Specification
 You can optionally specify which types of urls to sort: valid, invalid, or all urls. NB: If a 'valid' or 'invalid' is chosen, then all output urls will be normalized.
+To specify which urls to sort, simply use the command line option -k or --kind and then 'valid', 'invalid', or 'None'
 
+It is important to note:   
+If 'valid' or 'invalid' is chosen, URLs will be normalized, then sorted and written out to file according to their normalized form (while it may be unintuitive to see, in the output, that the input is mutated, it makes our normalization method more transparent). If a URL is not normalized ('None'), it will be sorted and output according to its original form.
+
+### Definition of a Valid Form
 To validate our URLs we decided to use the same validation regex used by the Django project. We copied the regex over
 to our validation module instead of adding a Django dependency for such a small piece of functionality.
 We chose this regex because it has been tested and implemented in a mature web framework. It should be more than
@@ -55,6 +61,8 @@ Valid URLs
 For more specific information about specific number and types of characters allowed in each component,
 see the URL regex in `urltools/validator.py`
 
+
+### Canonical Form
 Before validation, the following normalizations are performed (The first three are guaranteed to preserve semantics):
 * convert scheme and host to lowercase
 * capitalize letters in escape sequences
@@ -63,7 +71,15 @@ Before validation, the following normalizations are performed (The first three a
 * remove dot segments
 * remove empty query string
 
+### Canonicalizer
+After performing any necessary validation, URLs that are returned as valid through the validator are canonicalized through a normalizer module. This module contains methods that implement each component of our definition of the canonicalized form. These normalization methods are executed in fixed order. The normalizer returns only the normalized form of the URL, so there is no mapping with its original form.
 
+### Comparators
+Based on our command line sorting options, we define two different comparators on URLs as strings:   
+* Order by length, ascending
+* Order alphabetically   
+
+### Task Division
 We divided the url sorting exercise into the following tasks:
 * Command-line option for url validation
 * Normalization methods
