@@ -47,7 +47,7 @@ It is important to note:
 If 'valid' or 'invalid' is chosen, URLs will be normalized, then sorted and written out to file according to their normalized form (while it may be unintuitive to see, in the output, that the input is mutated, it makes our normalization method more transparent). If a URL is not normalized ('None'), it will be sorted and output according to its original form.
 
 ### Definition of a Valid Form
-A string is considered a valid URL if it matches the following regular expression: [[source, line 45](https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py)].
+A string is considered a valid URL if it matches the following regular expression: [Django source code](https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45).
 
 To validate our URLs we decided to use the same validation regex used by the Django project. We copied the regex over
 to our validation module instead of adding a Django dependency for such a small piece of functionality.
