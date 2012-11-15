@@ -44,7 +44,7 @@ You can optionally specify which types of urls to sort: valid, invalid, or all u
 To specify which urls to sort, simply use the command line option -k or --kind and then 'valid', 'invalid', or 'None'
 
 It is important to note:   
-If 'valid' or 'invalid' is chosen, URLs will be normalized, then sorted and written out to file according to their normalized form (while it may be unintuitive to see, in the output, that the input is mutated, it makes our normalization method more transparent). If a URL is not normalized ('None'), it will be sorted and output according to its original form.
+If 'valid' is chosen, URLs will be normalized, then sorted and written out to file according to their normalized form (while it may be unintuitive to see, in the output, that the input is mutated, it makes our normalization method more transparent). If a 'None' is chosen, it will be sorted and output according to its original form.  We only normalize when the user is specifically looking for valid URLs because it doesn't make sense to normalize strings that the user does not want treated as URLs.  Furthermore, if 'invalid' is selected then we will filter all valid URLs out and then sort the remaining strings in original form.  This is again due to the fact that normalizing a string that is known to not be a URL does not make sense.
 
 ### Definition of a Valid Form
 A string is considered a valid URL if it matches the following regular expression: [Django source code](https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45).
@@ -66,14 +66,19 @@ Valid URLs
 For more specific information about specific number and types of characters allowed in each component,
 see the URL regex in `urltools/validator.py`
 
+Note that under this regex the strings "www.google.com" or "google.com" will not be considered valid URLs because they do not start with 'http|https|ftp|ftps'.  We decided that this is fine because these strings are not complete URLs and only work in browsers because the browser infers the missing parts.
+
 ### Canonical Form
-Before validation, the following normalizations are performed (The first three are guaranteed to preserve semantics):
+Before validation, the following normalizations are performed (The first four are guaranteed to preserve semantics):
 * convert scheme and host to lowercase
 * capitalize letters in escape sequences
 * remove the default port
+* decoding percent-encoded octets of unreserved characters (e.g. "%7E" becomes ~)
 * add trailing slash
 * remove dot segments
 * remove empty query string
+
+While this list is by no means exhaustive, we feel that this will cover a good amount of normal use cases based on our prior experiences with URLs, so we decided on these 7 actions.  We included all of the normalizations that will preserve semantics (as according to Wikipedia), 2 normalizations that usually preserve semantics, and one that may change semantics.  We feel that the last one (removing empty query strings) is probably ok in most cases based on prior experiences with websites.
 
 ### Canonicalizer
 After performing any necessary validation, URLs that are returned as valid through the validator are canonicalized through a normalizer module. This module contains methods that implement each component of our definition of the canonicalized form. These normalization methods are executed in fixed order. The normalizer returns only the normalized form of the URL, so there is no mapping with its original form.
