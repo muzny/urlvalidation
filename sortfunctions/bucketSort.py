@@ -59,6 +59,11 @@ class BucketSort:
 
         # Set up the empty buckets.
         num_buckets = (max_val / bucket_size) - (min_val / bucket_size)
+		
+		# If we have one bucket or less, don't bother sorting
+        if (num_buckets == 0):
+            return list
+		
         bucket_list = []
         for i in range(num_buckets + 1):
             bucket_list.append([])
@@ -77,9 +82,7 @@ class BucketSort:
         # that bucket.
         for i in range(len(bucket_list)):
             if len(bucket_list[i]) > 0:
-                if len(bucket_list[i]) == len(list):
-                    bucket_list[i] = bucket_list[i]
-                else:
+                if len(bucket_list[i]) != len(list):
                     bucket_list[i] = self.bucketsort(bucket_list[i])
 
         # Concatenate all of the sorted buckets
