@@ -56,10 +56,9 @@ def _remove_dot_segments(url):
 # normalizations that change semantics
 
 def _remove_empty_querystring(url):
-    if len(url) < 2:
+    if len(url) == 0:
         return url
 
-    # need to account for the \n at the end
     if url[len(url) - 1] == r'?':
         url = url[:-1]
     return url
