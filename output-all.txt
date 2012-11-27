@@ -1,0 +1,14 @@
+www.facebook.com
+?i_am_an_invalid_url
+http://www.google.com/?
+http://cs.washington.edu
+http://www.google.com:80/
+http://news.ycombinator.com
+HTTP://3:23:1/4.3\invalid_url
+http://www.fakeurl.com/testdir
+http://WWW.example.com/a%c2%b1b
+http://www.fakeurl.com/testfile.html
+http://127.0.0.1:80/mydjangoapp/login
+http://WWW.example.com/space here.html
+http://www.example.com/display?article=fred&lang=en
+http://www.testsite.com/dir1/dir2a/../dir2b/./file.txt
