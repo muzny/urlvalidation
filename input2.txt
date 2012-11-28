@@ -1,0 +1,8 @@
+http://news.ycombinator.com
+http://news.ycombinator.com
+http://www.fakeurl.com/testfile.html
+http://www.google.com/?
+http://www.google.com:80/
+www.facebook.com
+www.facebook.com/
+HTTP://3:23:1/4.3\invalid_url

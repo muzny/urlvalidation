@@ -80,6 +80,7 @@ if __name__ == "__main__":
 
     # remove trailing '\n' from urls
     urls = [x.rstrip('\n') for x in urls]
+    urlsCopy = urls[:]
 
     # normalize and validate urls, if desired
     normUrls = normalizer.normalize(urls)
@@ -93,5 +94,15 @@ if __name__ == "__main__":
     sortedList = sorter.sort()
     outfile.write("\n".join(sortedList))
 
+    # Terminal output
+    for i in range(len(urlsCopy)):
+        print "%-17s: %s" % ("Source url", urlsCopy[i])
+        valid = normUrls[i] in validUrls
+        print "%-17s: %s" % ("Valid", valid)
+        print "%-17s: %s" % ("Canonical form", normUrls[i])
+        sUnique = urlsCopy.count(urlsCopy[i]) == 1
+        print "%-17s: %s" % ("Source unique", sUnique)
+        cUnique = normUrls.count(normUrls[i]) == 1
+        print "%-17s: %s" % ("Canonical unique", cUnique)
 
 # vim: set ai et ts=4 sw=4 sts=4 :

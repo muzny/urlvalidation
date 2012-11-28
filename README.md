@@ -36,5 +36,26 @@ you will see a verbose explaination of the command line arguments. Here is that 
         -k {valid,invalid,None}, --kind {valid,invalid,None}
                         kind of urls to sort
     
+Running the program will produce output in the following form:
+
+    ...
+    Source url       : http://news.ycombinator.com
+    Valid            : True
+    Canonical form   : http://news.ycombinator.com/
+    Source unique    : False
+    Canonical unique : False
+
+    Source url       : http://www.fakeurl.com/testfile.html
+    Valid            : True
+    Canonical form   : http://www.fakeurl.com/testfile.html
+    Source unique    : True
+    Canonical unique : True
+
+    Source url       : http://www.google.com/?
+    Valid            : True
+    Canonical form   : http://www.google.com/
+    Source unique    : True
+    Canonical unique : False
+    ...
     
 
